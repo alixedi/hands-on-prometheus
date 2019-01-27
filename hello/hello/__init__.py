@@ -1,3 +1,6 @@
+from time import sleep
+from random import random
+
 from flask import (
     Flask,
     Response,
@@ -5,7 +8,7 @@ from flask import (
     request,
     current_app as app
 )
-from prometheus_client import Counter, Histogram, Info
+from prometheus_client import Counter, Histogram, Info, Gauge
 
 
 __version__ = '1.0.0'
@@ -14,6 +17,7 @@ __version__ = '1.0.0'
 def create_app():
 
     app = Flask(__name__)
+
     app.hello_count = Counter(
         'hello_count',
         'Number of requests to /',
@@ -23,16 +27,23 @@ def create_app():
             'ua_language'
         )
     )
+
     app.latency = Histogram(
         'latency',
         'Request latency for endpoints'
     )
+
     app.version = Info(
         'version',
         'Version of hello app'
     ).info({
         'version': __version__
     })
+
+    app.concurrent = Gauge(
+        'concurrent',
+        'Requests being served right now'
+    )
 
     def get_request_metrics():
         return {
@@ -48,7 +59,9 @@ def create_app():
     @app.route('/')
     @app.route('/<name>')
     @app.latency.time()
+    @app.concurrent.track_inprogress()
     def hello(name='stranger'):
+        sleep(random() * 5)
         app.hello_count.labels(
             **get_request_metrics(),
             **{'name': name}
