@@ -1,0 +1,10 @@
+{
+    "python.pythonPath": "/Users/alixedi/.local/share/virtualenvs/hello-iP8TI8RD/bin/python",
+    "python.linting.enabled": false,
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.unitTest.promptToConfigure": false,
+    "python.unitTest.pyTestEnabled": false,
+    "python.unitTest.unittestEnabled": false,
+    "python.unitTest.nosetestsEnabled": false
+}
