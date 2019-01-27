@@ -5,11 +5,10 @@ from flask import (
     request,
     current_app as app
 )
-from prometheus_client import (
-    Counter,
-    generate_latest,
-    CONTENT_TYPE_LATEST
-)
+from prometheus_client import Counter, Histogram, Info
+
+
+__version__ = '1.0.0'
 
 
 def create_app():
@@ -24,6 +23,16 @@ def create_app():
             'ua_language'
         )
     )
+    app.latency = Histogram(
+        'latency',
+        'Request latency for endpoints'
+    )
+    app.version = Info(
+        'version',
+        'Version of hello app'
+    ).info({
+        'version': __version__
+    })
 
     def get_request_metrics():
         return {
@@ -38,6 +47,7 @@ def create_app():
 
     @app.route('/')
     @app.route('/<name>')
+    @app.latency.time()
     def hello(name='stranger'):
         app.hello_count.labels(
             **get_request_metrics(),
