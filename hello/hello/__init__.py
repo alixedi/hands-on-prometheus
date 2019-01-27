@@ -21,11 +21,7 @@ def create_app():
     app.hello_count = Counter(
         'hello_count',
         'Number of requests to hello',
-        (
-            'remote_addr', 'method', 'url', 'name',
-            'ua_platform', 'ua_browser', 'ua_version',
-            'ua_language'
-        )
+        ('name', 'ua_platform', 'ua_browser')
     )
 
     app.latency = Histogram(
@@ -57,7 +53,7 @@ def create_app():
     @app.latency.time()
     @app.concurrent.track_inprogress()
     def hello(name='stranger'):
-        sleep(random() * 5)
+        sleep(random())
         app.hello_count.labels(
             **get_request_metrics(),
             **{'name': name}
