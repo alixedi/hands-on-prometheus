@@ -20,7 +20,7 @@ def create_app():
 
     app.hello_count = Counter(
         'hello_count',
-        'Number of requests to /',
+        'Number of requests to hello',
         (
             'remote_addr', 'method', 'url', 'name',
             'ua_platform', 'ua_browser', 'ua_version',
@@ -29,31 +29,27 @@ def create_app():
     )
 
     app.latency = Histogram(
-        'latency',
-        'Request latency for endpoints'
+        'hello_latency',
+        'Request latency for hello'
     )
 
     app.version = Info(
-        'version',
+        'hello_version',
         'Version of hello app'
     ).info({
         'version': __version__
     })
 
     app.concurrent = Gauge(
-        'concurrent',
-        'Requests being served right now'
+        'hello_concurrent',
+        'Requests being served right now',
+        multiprocess_mode='livesum'
     )
 
     def get_request_metrics():
         return {
-            'remote_addr': request.remote_addr,
-            'method': request.method,
-            'url': request.url,
             'ua_platform': request.user_agent.platform,
             'ua_browser': request.user_agent.browser,
-            'ua_version': request.user_agent.version,
-            'ua_language': request.user_agent.language,
         }
 
     @app.route('/')
