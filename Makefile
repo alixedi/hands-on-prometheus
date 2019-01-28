@@ -22,13 +22,6 @@ clean: stop
 	docker-compose rm -f
 
 test:
-	python test_hello.py & \
-	python test_hello.py & \
-	python test_hello.py & \
-	python test_hello.py & \
-	python test_hello.py & \
-	python test_hello.py & \
-	python test_hello.py & \
-	python test_hello.py
+	python test_hello.py 5
 
 .PHONY: hello metrics
