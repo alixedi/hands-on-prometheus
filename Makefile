@@ -26,6 +26,9 @@ test:
 	python test_hello.py & \
 	python test_hello.py & \
 	python test_hello.py & \
+	python test_hello.py & \
+	python test_hello.py & \
+	python test_hello.py & \
 	python test_hello.py
 
 .PHONY: hello metrics

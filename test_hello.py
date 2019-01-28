@@ -11,7 +11,7 @@ NAMES = [
 ]
 
 
-for i in range(10):
+for i in range(25):
     name = choice(NAMES)
     print(f'Sending request #{i} to /{name}\r')
     request.urlopen(
