@@ -6,4 +6,4 @@ RUN pip install -U pipenv
 RUN pipenv install --system --deploy --ignore-pipfile
 
 ADD hello /hello
-CMD ["gunicorn", "hello.wsgi", "-w 2", "-b 0.0.0.0:8000"]
+CMD ["gunicorn", "hello", "-b 0.0.0.0:8000"]
