@@ -20,7 +20,9 @@ def create_app():
     )
 
     app.request_latency = Histogram(
-        'hello_latency_seconds', 'Request latency')
+        'hello_latency_seconds', 'Request latency',
+        buckets=[x * 0.5 for x in range(20)]
+    )
 
     app.version = Info(
         'hello_version', 'Hello version'
@@ -30,8 +32,8 @@ def create_app():
     @app.route('/<name>')
     @app.request_latency.time()
     def hello(name='Stranger'):
-        app.request_counter.labels(name=name, pid=PID).inc()
-        sleep(lognormvariate(1, 1/8))
+        app.request_counter.labels(name=name).inc()
+        sleep(lognormvariate(1, 1/4))
         return jsonify(f'Hello {name}!')
 
     return app
