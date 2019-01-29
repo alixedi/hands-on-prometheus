@@ -159,7 +159,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "sum without (name) (rate(hello_request_count_total[5m]))",
+          "expr": "sum without (name, pid) (rate(hello_request_count_total[5m]))",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -305,13 +305,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(hello_request_count_total[5m])",
+          "expr": "sum by (pid) (rate(hello_request_count_total[5m]))",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
         },
         {
-          "expr": "sum without (name) (rate(hello_request_count_total[5m]))",
+          "expr": "sum without (pid, name) (rate(hello_request_count_total[5m]))",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "B"
@@ -399,6 +399,12 @@
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
+        },
+        {
+          "expr": "process",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "refId": "B"
         }
       ],
       "thresholds": [],
@@ -553,7 +559,7 @@
       "links": [],
       "targets": [
         {
-          "expr": "increase(hello_latency_seconds_bucket[5m])",
+          "expr": "sum without (pid) (increase(hello_latency_seconds_bucket[5m]))",
           "format": "heatmap",
           "intervalFactor": 1,
           "legendFormat": "{{le}}",
@@ -706,5 +712,5 @@
   "timezone": "",
   "title": "Hello",
   "uid": "1IF6ft_ik",
-  "version": 8
+  "version": 2
 }
