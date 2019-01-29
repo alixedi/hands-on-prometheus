@@ -484,7 +484,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "process_resident_memory_bytes{job=\"hello\"}",
+          "expr": "process_resident_memory_bytes{job=\"hello\"} / 1024",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -510,7 +510,7 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "format": "kbytes",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -712,5 +712,5 @@
   "timezone": "",
   "title": "Hello",
   "uid": "1IF6ft_ik",
-  "version": 2
+  "version": 3
 }
