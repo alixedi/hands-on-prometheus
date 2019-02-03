@@ -16,7 +16,7 @@ hello:
 	curl localhost:8000/${NAME} | jq
 
 metrics:
-	curl http://localhost:9090/api/v1/query\?query\=hello_count_total | jq
+	curl http://localhost:9090/api/v1/query\?query\=hello_request_count_total | jq
 
 clean: stop
 	docker-compose rm -f
