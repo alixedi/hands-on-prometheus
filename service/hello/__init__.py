@@ -12,3 +12,4 @@ def create_app():
 
     return app
 
+application = create_app()
