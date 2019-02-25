@@ -3,7 +3,7 @@ version: '3'
 services:
 
     hello:
-        image: hello
+        image: store
         ports:
             - "8000:8000"
 

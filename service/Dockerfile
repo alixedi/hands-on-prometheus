@@ -5,5 +5,6 @@ COPY Pipfile* /
 RUN pip install -U pipenv
 RUN pipenv install --system --deploy --ignore-pipfile
 
-ADD hello /hello
-CMD ["gunicorn", "hello", "-w 2", "-b 0.0.0.0:8000"]
+ADD store /store
+ENV FLASK_APP store
+CMD ["flask", "run", "-h 0.0.0.0", "-p 8000"]

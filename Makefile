@@ -1,10 +1,10 @@
 prometheus-build:
 	docker build prometheus -t prometheus
 
-hello-build:
-	docker build hello -t hello
+store-build:
+	docker build service -t store
 
-build: hello-build prometheus-build
+build: store-build prometheus-build
 
 run: build
 	docker-compose up -d
@@ -13,15 +13,15 @@ stop:
 	docker-compose stop
 
 hello:
-	curl localhost:8000/${NAME} | jq
+	curl localhost:8000/checkout | jq
 
 metrics:
-	curl http://localhost:9090/api/v1/query\?query\=hello_request_count_total | jq
+	curl http://localhost:9090/api/v1/query\?query\=payment_latency_seconds_total | jq
 
 clean: stop
 	docker-compose rm -f
 
 test:
-	python test_hello.py & python test_hello.py
+	python test.py
 
 .PHONY: hello metrics
