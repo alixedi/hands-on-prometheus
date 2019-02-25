@@ -12,7 +12,7 @@ run: build
 stop:
 	docker-compose stop
 
-hello:
+buy:
 	curl localhost:8000/checkout | jq
 
 metrics:

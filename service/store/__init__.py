@@ -24,10 +24,10 @@ def create_app():
         delay_in_sec = random()
         sleep(delay_in_sec)
 
-    @app.route('/checkout', method='POST')
+    @app.route('/checkout', methods=('POST', ))
     def checkout():
         payment_info = request.get_json()
-        app.process_payment(payment_info)
+        process_payment(payment_info)
         return jsonify('Thank you!'), 200
 
     return app
